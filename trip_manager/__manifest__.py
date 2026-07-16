@@ -21,6 +21,7 @@
         
         'report/trip_manager_enquiry_report.xml',
         
+        'views/trip_manager_enquiry_addon_views.xml',
         'views/report_trip_manager_enquiry.xml', 
         'views/trip_manager_addon_category_views.xml',
         'views/trip_manager_enquiry_option_views.xml',

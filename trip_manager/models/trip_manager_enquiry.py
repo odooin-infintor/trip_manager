@@ -49,10 +49,6 @@ class TripManagerEnquiry(models.Model):
         ('international', 'International')
     ], string='Package Type', default='domestic')
     package_no_of_day   = fields.Integer(related='package_id.no_of_day', string='No Of Days')
-    package_visa_fee    = fields.Monetary(related='package_id.visa_fee', string='Visa Fee',      
-                                          currency_field='currency_id')
-    package_included    = fields.Html(related='package_id.included_items', string='Included')
-    package_excluded    = fields.Html(related='package_id.excluded_items', string='Excluded')
     package_cancellation= fields.Html(related='package_id.cancellation_policy', string='Cancellation Policy')
     package_terms       = fields.Html(related='package_id.terms_and_condition', string='Terms & Conditions')
     customer_id = fields.Many2one(comodel_name='res.partner', string='Customer', required=True, index=True)

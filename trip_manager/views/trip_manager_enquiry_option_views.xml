@@ -104,15 +104,17 @@
                         <page string="Inclusions" name="inclusions">
                             <field name="addon_ids">
                                 <list editable="bottom">
-                                    <field name="category_id" string="Category"/>
-                                    <field name="is_guide_category" column_invisible="1"/>
-                                    <field name="guide_id" string="Guide"
-                                        invisible="not is_guide_category"/>
+                                    <field name="category_id" string="Item"/>
                                     <field name="description" string="Notes"/>
                                     <field name="cost" widget="monetary"/>
                                     <field name="currency_id" column_invisible="1"/>
                                 </list>
                             </field>
+                        </page>
+
+                        <!-- Exclusion -->
+                        <page string="Exclusions">
+                            <field name="excluded_items" widget="html" no_label="1"/>
                         </page>
 
                         <!-- Flight -->

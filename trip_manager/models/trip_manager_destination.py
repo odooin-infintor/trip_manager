@@ -27,8 +27,6 @@ class TripManagerDestination(models.Model):
     slot2_end_time          = fields.Float(string='Closes Again At')
     visiting_hours_display = fields.Char(string='Visiting Hours', compute='_compute_visiting_hours_display', 
                                          store=True)
-    has_entry_ticket = fields.Boolean(string='Entry Ticket')
-    entry_ticket_price = fields.Monetary(string='Entry Ticket Price', currency_field='currency_id')
     timing_display = fields.Char(compute='_compute_timing_display', store=True)
     
     currency_id = fields.Many2one('res.currency', string='Currency', 
@@ -37,7 +35,7 @@ class TripManagerDestination(models.Model):
     city_ids = fields.Many2many('trip.manager.city', string='Cities')
     activity_ids = fields.Many2many('trip.manager.activity', string='Activities')
     destination_category_ids = fields.Many2many('trip.manager.destination.category', string='Location Type')
-    
+    enquiry_addon_ids = fields.One2many('trip.manager.enquiry.addon', 'destination_id', string='Addons')
     # ------------------------------------------------------------------------------
     #   MARK: COMPUTE/OVERRIDDEN METHODS
     # ------------------------------------------------------------------------------

@@ -25,7 +25,6 @@ class TripManagerPackage(models.Model):
     image = fields.Image(string="Image", max_width=512, max_height=512)
     no_of_day = fields.Integer(string='No Of Days', required=True)
     no_of_night = fields.Integer(string='No of Nights', required=True, default=0)
-    included_items = fields.Html(string="Included")
     excluded_items = fields.Html(string="Excluded")
     cancellation_policy = fields.Html(string="Cancellation Policy")
     terms_and_condition = fields.Html(string="Terms & Conditions")
@@ -33,15 +32,14 @@ class TripManagerPackage(models.Model):
         ('domestic', 'Domestic'),
         ('international', 'International')
     ], string='Package Type', default='domestic')
-    visa_fee = fields.Monetary(string="Visa Fee", currency_field='currency_id')
     related_hotels_count = fields.Integer(string="Hotel Count", compute='_compute_related_hotels_count')
     
     from_city_id = fields.Many2one('trip.manager.city', string='From City')
     currency_id = fields.Many2one('res.currency', string='Currency', 
                                   default=lambda self: self.env.company.currency_id)
     destination_city_id = fields.Many2one('trip.manager.city', string='Destination City')
-    itineary_ids = fields.One2many('trip.manager.itineary','package_id', string="Itineraries")
-    
+    itineary_ids = fields.One2many('trip.manager.itineary','package_id', string='Itineraries')
+    enquiry_addon_ids = fields.Many2many('trip.manager.enquiry.addon', compute='_compute_addons', string='Addons')
     # ------------------------------------------------------------------------------
     #   MARK: COMPUTE/OVERRIDDEN METHODS
     # ------------------------------------------------------------------------------
@@ -69,10 +67,23 @@ class TripManagerPackage(models.Model):
                 raise ValidationError(_("Number of Days must be greater than zero."))
             if record.no_of_night < 0:
                 raise ValidationError(_("Number of Nights cannot be negative."))
+            
+    @api.depends(
+        'itineary_ids.destination_ids',
+        'itineary_ids.destination_ids.enquiry_addon_ids',
+    )
+    def _compute_addons(self):
+        for package in self:
+            package.enquiry_addon_ids = (
+                package.itineary_ids
+                    .mapped('destination_ids')
+                    .mapped('enquiry_addon_ids')
+            )
 
     def action_open_related_hotels(self):
         """Opens a filtered list view of all hotels linked to the package's
         destination city, triggered from the smart button on the package form."""
+        
         self.ensure_one()
         if self.destination_city_id:
             city_hotels = self.env['trip.manager.hotel'].search([

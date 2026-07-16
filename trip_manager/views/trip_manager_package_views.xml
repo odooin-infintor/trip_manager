@@ -48,10 +48,16 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="Included">
-                            <field name="included_items" widget="html" no_label="1"/>
+                        <page string="Inclusions">
+                            <field name="enquiry_addon_ids">
+                                <list>
+                                    <field name="category_id" string="Item"/>
+                                    <field name="description" string="Notes"/>
+                                    <field name="cost" widget="monetary"/>
+                                </list>
+                            </field>
                         </page>
-                        <page string="Excluded">
+                        <page string="Exclusions">
                             <field name="excluded_items" widget="html" no_label="1"/>
                         </page>
                         <page string=" Cancellation Policy">

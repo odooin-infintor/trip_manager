@@ -190,12 +190,23 @@
         <hr style="margin:10px 0;"/>
 
             <!-- ================= INCLUSIONS ================= -->
-            <t t-if="o.package_id.included_items">
-                <h4 style="margin:10px 0;">Inclusions</h4>
+            <t t-if="o.option_ids">
+                <t t-set="addons" t-value="o.option_ids[0].addon_ids"/>
 
-                <div style="font-size:12px; margin-bottom:10px;">
-                    <t t-out="o.package_id.included_items"/>
-                </div>
+                <t t-if="addons">
+                    <h4 style="margin:10px 0;">Inclusions</h4>
+
+                    <ul style="font-size:12px;">
+                        <t t-foreach="addons" t-as="addon">
+                            <li>
+                                <strong><t t-out="addon.category_id.name"/></strong>
+                                <t t-if="addon.description">
+                                    - <t t-out="addon.description"/>
+                                </t>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
             </t>
 
             <!-- ================= EXCLUSIONS ================= -->
