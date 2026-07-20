@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_trip_enquiry_quotation">
-        <style>
-            @page {
-                margin-top: 10mm; 
-                margin-bottom: 10mm;
-                margin-left: 10mm;
-                margin-right: 10mm;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            .page {
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-        </style>
-
         <t t-call="web.html_container">
         <t t-foreach="docs" t-as="o">
         <t t-call="web.basic_layout">

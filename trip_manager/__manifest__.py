@@ -5,10 +5,13 @@
 {
     'name': 'TRIP MANAGER',
     'version': '19.0.1.0.0',
-    'category': 'Operations',
+    'category': 'Generic Modules',
     'sequence': 10,
-    'author': 'Sreejith Vijayakumar',
+    'author': 'Infintor Solutions',
+    'price': 50,
+    'currency': 'USD',
     'summary': 'Helps to manage tour operations',
+    'website': 'https://www.infintor.com',
     'depends': [
         'base',
     ],
@@ -40,5 +43,5 @@
     ],
     'installable': True,
     'application': True,
-    'license': 'LGPL-3',
+    'license': 'Other proprietary',
 }
