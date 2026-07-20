@@ -165,6 +165,21 @@ class TripManagerEnquiry(models.Model):
                 raise UserError(_(
                     "You can not delete a enquiry quotation or a confirmed enquiry."
                     " You must first cancel it."))
+                
+    def write(self, vals):
+        """Locks confirmed and cancelled enquiries: once an enquiry reaches
+        either state no field may be changed except the state itself, so that
+        the Reset to Draft button still works"""
+
+        locked_states = ('confirmed', 'cancel')
+        editable_when_locked = {'state'}
+        for enquiry in self:
+            if enquiry.state in locked_states and set(vals) - editable_when_locked:
+                raise UserError(_(
+                    "This enquiry is %s and cannot be edited. "
+                    "Reset it to Draft first."
+                ) % enquiry.state)
+        return super().write(vals)
     # ------------------------------------------------------------------------------
     #   MARK: BUTTON METHODS
     # ------------------------------------------------------------------------------
