@@ -22,8 +22,7 @@ class TripManagerEnquiryAddon(models.Model):
     category_id = fields.Many2one('trip.manager.addon.category', string='Item')
     currency_id = fields.Many2one('res.currency', related='enquiry_id.currency_id')
     guide_id = fields.Many2one('res.partner', domain=[('is_guide', '=', True)])    
-    option_id = fields.Many2one('trip.manager.enquiry.option',
-                                required=True, ondelete='cascade')
+    option_id = fields.Many2one('trip.manager.enquiry.option')
     enquiry_id = fields.Many2one('trip.manager.enquiry',
                                 related='option_id.enquiry_id',
                                 store=True, string='Enquiry')
