@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- FORM VIEW -->
+    <record id="trip_manager_enquiry_addon_view_form" model="ir.ui.view">
+        <field name="name">trip.manager.enquiry.addon.view.form</field>
+        <field name="model">trip.manager.enquiry.addon</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="category_id" string="Item"/>
+                        <field name="is_guide_category" invisible="1"/>
+                        <field name="guide_id" string="Guide"
+                            invisible="not is_guide_category"/>
+                        <field name="description" string="Notes"/>
+                        <field name="cost" widget="monetary"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- LIST VIEW -->
+    <record id="trip_manager_enquiry_addon_view_tree" model="ir.ui.view">
+        <field name="name">trip.manager.enquiry.addon.view.tree</field>
+        <field name="model">trip.manager.enquiry.addon</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="category_id" string="Item"/>
+                <field name="description" string="Notes"/>
+                <field name="cost" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_trip_manager_enquiry_addon" model="ir.actions.act_window"> 
+        <field name="name">Addons</field>
+        <field name="res_model">trip.manager.enquiry.addon</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

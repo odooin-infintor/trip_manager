@@ -49,10 +49,6 @@ class TripManagerEnquiry(models.Model):
         ('international', 'International')
     ], string='Package Type', default='domestic')
     package_no_of_day   = fields.Integer(related='package_id.no_of_day', string='No Of Days')
-    package_visa_fee    = fields.Monetary(related='package_id.visa_fee', string='Visa Fee',      
-                                          currency_field='currency_id')
-    package_included    = fields.Html(related='package_id.included_items', string='Included')
-    package_excluded    = fields.Html(related='package_id.excluded_items', string='Excluded')
     package_cancellation= fields.Html(related='package_id.cancellation_policy', string='Cancellation Policy')
     package_terms       = fields.Html(related='package_id.terms_and_condition', string='Terms & Conditions')
     customer_id = fields.Many2one(comodel_name='res.partner', string='Customer', required=True, index=True)
@@ -169,6 +165,21 @@ class TripManagerEnquiry(models.Model):
                 raise UserError(_(
                     "You can not delete a enquiry quotation or a confirmed enquiry."
                     " You must first cancel it."))
+                
+    def write(self, vals):
+        """Locks confirmed and cancelled enquiries: once an enquiry reaches
+        either state no field may be changed except the state itself, so that
+        the Reset to Draft button still works"""
+
+        locked_states = ('confirmed', 'cancel')
+        editable_when_locked = {'state'}
+        for enquiry in self:
+            if enquiry.state in locked_states and set(vals) - editable_when_locked:
+                raise UserError(_(
+                    "This enquiry is %s and cannot be edited. "
+                    "Reset it to Draft first."
+                ) % enquiry.state)
+        return super().write(vals)
     # ------------------------------------------------------------------------------
     #   MARK: BUTTON METHODS
     # ------------------------------------------------------------------------------

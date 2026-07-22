@@ -14,16 +14,12 @@
                             <field name="name" placeholder="Destination Name"/>
                         </h1>
                     </div>
-                    <group>
-                        <group string="Basic Info">
+                    <group string="Basic Info">
+                        <group >
                             <field name="destination_category_ids" widget="many2many_tags"/>
-                            <field name="city_ids" widget="many2many_tags"/>
                         </group>
-                        <group string="Entry">
-                            <field name="has_entry_ticket"/>
-                            <field name="entry_ticket_price"
-                                invisible="not has_entry_ticket"
-                                readonly="not has_entry_ticket"/>
+                        <group>
+                            <field name="city_ids" widget="many2many_tags"/>
                         </group>
                     </group>
                     <group string="Visiting Hours">
@@ -66,7 +62,17 @@
                             <field name="activity_ids" widget="many2many_tags"/>
                         </group>
                     </group>
-
+                    <notebook>
+                        <page string="Inclusions">
+                            <field name="enquiry_addon_ids">
+                                <list>
+                                    <field name="category_id" string="Item"/>
+                                    <field name="description" string="Notes"/>
+                                    <field name="cost" widget="monetary"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

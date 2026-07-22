@@ -19,7 +19,7 @@ class TripManagerEnquiryAddon(models.Model):
     is_guide_category = fields.Boolean(related='category_id.is_guide_category', store=False)
     cost = fields.Monetary(string='Cost', currency_field='currency_id')    
     
-    category_id = fields.Many2one('trip.manager.addon.category', string='Category')
+    category_id = fields.Many2one('trip.manager.addon.category', string='Item')
     currency_id = fields.Many2one('res.currency', related='enquiry_id.currency_id')
     guide_id = fields.Many2one('res.partner', domain=[('is_guide', '=', True)])    
     option_id = fields.Many2one('trip.manager.enquiry.option',
@@ -27,7 +27,7 @@ class TripManagerEnquiryAddon(models.Model):
     enquiry_id = fields.Many2one('trip.manager.enquiry',
                                 related='option_id.enquiry_id',
                                 store=True, string='Enquiry')
-
+    destination_id = fields.Many2one('trip.manager.destination', string='Destination', ondelete='cascade')
     # ------------------------------------------------------------------------------
     #   MARK: COMPUTE/OVERRIDDEN METHODS
     # ------------------------------------------------------------------------------

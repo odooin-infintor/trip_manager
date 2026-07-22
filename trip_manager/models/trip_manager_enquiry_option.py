@@ -46,6 +46,7 @@ class TripManagerEnquiryOption(models.Model):
     profit_amount = fields.Monetary(string='Profit', compute='_compute_profit', store=True, currency_field='currency_id')
     profit_percentage = fields.Float(string='Profit (%)', compute='_compute_profit', store=True, digits=(16, 2))
     flight_total = fields.Monetary(string='Flight Total', compute='_compute_flight_total', store=True)
+    excluded_items = fields.Html(string="Excluded")
     is_selected = fields.Boolean(string='Selected', default=False, copy=False,
                              help='The package option chosen by the customer. '
                                   'Exactly one option must be selected before confirmation.')
@@ -127,32 +128,35 @@ class TripManagerEnquiryOption(models.Model):
             total_days = len(itineraries)
             no_of_nights = package.no_of_night or (total_days - 1 if total_days else 0)
 
-            entry_ticket_category = self.env.ref(
-                'trip_manager.addon_category_entry_ticket',raise_if_not_found=False)
-            seen_destinations = set()
+            seen_addons = set()
 
-            for index, itineary in enumerate(itineraries):
-                actual_date = itineary._get_actual_date(start_date)
+            for index, itinerary in enumerate(itineraries):
+                actual_date = itinerary._get_actual_date(start_date)
                 if index < no_of_nights:
                     acc_lines.append((0, 0, {
-                        'itineary_id': itineary.id,
+                        'itineary_id': itinerary.id,
                         'actual_date': actual_date,
-                        'destination_ids': [(6, 0, itineary.destination_ids.ids)],
+                        'destination_ids': [(6, 0, itinerary.destination_ids.ids)],
                     }))
-                for destination in itineary.destination_ids:
-                    if destination.id in seen_destinations:
-                        continue
-                    if destination.has_entry_ticket and destination.entry_ticket_price:
+                for destination in itinerary.destination_ids:
+                    for addon in destination.enquiry_addon_ids:
+
+                        if addon.id in seen_addons:
+                            continue
+
                         addon_lines.append((0, 0, {
-                            'category_id': entry_ticket_category.id if entry_ticket_category else False,
-                            'description': destination.name,
-                            'cost': destination.entry_ticket_price,
+                            'category_id': addon.category_id.id,
+                            'description': addon.description,
+                            'cost': addon.cost,
+                            'destination_id': destination.id,
                         }))
-                    seen_destinations.add(destination.id)
+
+                        seen_addons.add(addon.id)
 
             defaults['booking_line_ids'] = acc_lines
             if addon_lines:
                 defaults['addon_ids'] = addon_lines
+            defaults['excluded_items'] = package.excluded_items
         return defaults
         
     @api.model_create_multi
@@ -211,6 +215,6 @@ class TripManagerEnquiryOption(models.Model):
         for rec in self:
             rec.profit_amount = rec.selling_rate - rec.total_amount
             rec.profit_percentage = (
-                (rec.profit_amount / rec.selling_rate) * 100
+                (rec.profit_amount / rec.total_amount) * 100
                 if rec.selling_rate else 0.0
             )
