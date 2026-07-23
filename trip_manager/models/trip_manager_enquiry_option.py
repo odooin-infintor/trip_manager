@@ -46,7 +46,6 @@ class TripManagerEnquiryOption(models.Model):
     profit_amount = fields.Monetary(string='Profit', compute='_compute_profit', store=True, currency_field='currency_id')
     profit_percentage = fields.Float(string='Profit (%)', compute='_compute_profit', store=True, digits=(16, 2))
     flight_total = fields.Monetary(string='Flight Total', compute='_compute_flight_total', store=True)
-    excluded_items = fields.Html(string="Excluded")
     is_selected = fields.Boolean(string='Selected', default=False, copy=False,
                              help='The package option chosen by the customer. '
                                   'Exactly one option must be selected before confirmation.')
@@ -156,7 +155,6 @@ class TripManagerEnquiryOption(models.Model):
             defaults['booking_line_ids'] = acc_lines
             if addon_lines:
                 defaults['addon_ids'] = addon_lines
-            defaults['excluded_items'] = package.excluded_items
         return defaults
         
     @api.model_create_multi
