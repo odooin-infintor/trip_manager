@@ -48,7 +48,7 @@
 
                         <!-- Accommodation -->
                         <page string="Accommodation" name="accommodation">
-                            <field name="booking_line_ids">
+                            <field name="booking_line_ids" readonly="not package_category">
                                 <list editable="bottom">
                                     <field name="actual_date"
                                            readonly="1" string="Date" force_save="1"/>
@@ -79,7 +79,7 @@
 
                         <!-- Transportation -->
                         <page string="Transportation" name="transportation">
-                            <field name="transport_line_ids"
+                            <field name="transport_line_ids" readonly="not package_category"
                             context="{'default_actual_date': tour_start_date,
                                        'tour_start_date': tour_start_date,
                                         'tour_end_date': tour_end_date}">
@@ -102,7 +102,7 @@
 
                         <!-- Inclusion -->
                         <page string="Inclusions" name="inclusions">
-                            <field name="addon_ids">
+                            <field name="addon_ids" readonly="not package_category">
                                 <list editable="bottom">
                                     <field name="category_id" string="Item"/>
                                     <field name="description" string="Notes"/>
@@ -112,14 +112,9 @@
                             </field>
                         </page>
 
-                        <!-- Exclusion -->
-                        <page string="Exclusions">
-                            <field name="excluded_items" widget="html" no_label="1"/>
-                        </page>
-
                         <!-- Flight -->
                         <page string="Flight" name="flight">
-                            <field name="flight_line_ids">
+                            <field name="flight_line_ids" readonly="not package_category">
                                 <list editable="bottom">
                                     <field name="currency_id" column_invisible="1"/>
                                     <field name="from_place"/>

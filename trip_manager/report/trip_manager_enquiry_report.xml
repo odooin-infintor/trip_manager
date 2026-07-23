@@ -57,6 +57,13 @@
 
             <hr style="margin:10px 0;"/>
 
+<!-- Package options in tier order: Standard -> Deluxe -> Premium -> Luxury -->
+        <t t-set="ordered_options" t-value="
+            o.option_ids.filtered_domain([('package_category', '=', 'standard')])
+            + o.option_ids.filtered_domain([('package_category', '=', 'deluxe')])
+            + o.option_ids.filtered_domain([('package_category', '=', 'premium')])
+            + o.option_ids.filtered_domain([('package_category', '=', 'luxury')])"/>
+
         <!-- ================= HOTEL TABLE ================= -->
         <h4 style="margin:10px 0;">Hotel Details</h4>
 
@@ -67,7 +74,7 @@
                     <th style="border:1px solid #ccc; padding:6px; width:8%;">Day</th>
                     <th style="border:1px solid #ccc; padding:6px; width:25%;">Destinations</th>
 
-                    <t t-foreach="o.option_ids.sorted('package_category')" t-as="opt">
+                    <t t-foreach="ordered_options" t-as="opt">
                         <th style="border:1px solid #ccc; padding:6px;">
                             <t t-esc="opt.package_category.capitalize()"/> Hotel
                         </th>
@@ -77,7 +84,7 @@
 
             <tbody>
 
-                <t t-foreach="o.option_ids and o.option_ids[0].booking_line_ids.sorted('actual_date')" t-as="line">
+                <t t-foreach="ordered_options and ordered_options[0].booking_line_ids.sorted('actual_date')" t-as="line">
                     <tr>
 
                         <td style="border:1px solid #ccc; padding:5px;">
@@ -88,7 +95,7 @@
                             <t t-esc="', '.join(line.destination_ids.mapped('name'))"/>
                         </td>
 
-                        <t t-foreach="o.option_ids.sorted('package_category')" t-as="opt">
+                        <t t-foreach="ordered_options" t-as="opt">
 
                             <t t-set="bl"
                             t-value="[l for l in opt.booking_line_ids if l.actual_date == line.actual_date]"/>
@@ -130,7 +137,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <t t-foreach="o.option_ids.sorted('package_category')" t-as="opt">
+                    <t t-foreach="ordered_options" t-as="opt">
                         <tr>
                             <td style="border:1px solid #ccc; padding:5px; font-weight:bold;">
                                 <t t-esc="opt.package_category.capitalize()"/>
@@ -155,7 +162,7 @@
 
         <!-- CASE 2: No flight charges -->
         <t t-else="">
-            <t t-foreach="o.option_ids.sorted('package_category')" t-as="opt">
+            <t t-foreach="ordered_options" t-as="opt">
                 <p style="margin:3px 0;">
                     <strong>
                         OFFER PRICE FOR <t t-esc="o.no_of_adult"/> PERSONS
@@ -170,28 +177,52 @@
 
         <hr style="margin:10px 0;"/>
 
-            <!-- ================= INCLUSIONS ================= -->
-            <t t-if="o.option_ids">
-                <t t-set="addons" t-value="o.option_ids[0].addon_ids"/>
+        <!-- ================= INCLUSIONS ================= -->
+        <t t-if="ordered_options">
+            <h4 style="margin:10px 0;">Inclusions</h4>
 
-                <t t-if="addons">
-                    <h4 style="margin:10px 0;">Inclusions</h4>
+            <table style="width:100%; border-collapse:collapse; font-size:12px; table-layout:fixed;">
 
-                    <ul style="font-size:12px;">
-                        <t t-foreach="addons" t-as="addon">
-                            <li>
-                                <strong><t t-out="addon.category_id.name"/></strong>
-                                <t t-if="addon.description">
-                                    - <t t-out="addon.description"/>
-                                </t>
-                            </li>
+                <thead style="background:#4CAF50; color:white;">
+                    <tr>
+                        <t t-foreach="ordered_options" t-as="opt">
+                            <th style="border:1px solid #ccc; padding:6px;">
+                                <t t-esc="opt.package_category.capitalize()"/>
+                            </th>
                         </t>
-                    </ul>
-                </t>
-            </t>
+                    </tr>
+                </thead>
 
-            <!-- ================= EXCLUSIONS ================= -->
+                <tbody>
+                    <tr>
+                        <t t-foreach="ordered_options" t-as="opt">
+                            <td style="border:1px solid #ccc; padding:5px; vertical-align:top;">
+
+                                <ul style="margin:0; padding-left:16px;">
+                                    <t t-foreach="opt.addon_ids" t-as="addon">
+                                        <li>
+                                            <strong><t t-out="addon.category_id.name"/></strong>
+                                            <t t-if="addon.description">
+                                                - <t t-out="addon.description"/>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+
+                                <t t-if="not opt.addon_ids">-</t>
+
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+
+            </table>
+        </t>
+        <!-- ================= EXCLUSIONS ================= -->
             <t t-if="o.package_id.excluded_items">
+
+                <div style="page-break-before: always;"> </div>
+
                 <h4 style="margin:10px 0;">Exclusions</h4>
 
                 <div style="font-size:12px; margin-bottom:10px;">
@@ -199,7 +230,7 @@
                 </div>
             </t>
 
-            <!-- ================= TERMS & CONDITIONS ================= -->
+        <!-- ================= TERMS & CONDITIONS ================= -->
             <t t-if="o.package_id.terms_and_condition">
                 <h4 style="margin:10px 0;">Terms &amp; Conditions</h4>
 
