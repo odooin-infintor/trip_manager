@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-
 {
     'name': 'TRIP MANAGER',
     'version': '19.0.1.0.0',
     'category': 'Generic Modules',
     'sequence': 10,
     'author': 'Infintor Solutions',
-    'price': 50,
+    'price': 400,
     'currency': 'USD',
     'summary': 'Helps to manage tour operations',
     'website': 'https://www.infintor.com',
@@ -41,6 +39,12 @@
         'views/trip_manager_city_views.xml',
         'views/trip_manager_menus.xml'
     ],
+
+    'images': [
+        # 'static/description/icon.png',
+        'static/description/banner.png',
+    ],
+
     'installable': True,
     'application': True,
     'license': 'Other proprietary',
