@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+
 {
-    'name': 'TRIP MANAGER',
+    'name': 'Tour & Travel Management System',
     'version': '19.0.1.0.0',
     'category': 'Generic Modules',
     'sequence': 10,
@@ -13,6 +15,11 @@
     'depends': [
         'base',
     ],
+
+    'images': [
+        'static/description/banner.png',
+    ],
+
     'data': [
         'security/trip_manager_security.xml',
         'security/ir.model.access.csv',
@@ -39,12 +46,6 @@
         'views/trip_manager_city_views.xml',
         'views/trip_manager_menus.xml'
     ],
-
-    'images': [
-        # 'static/description/icon.png',
-        'static/description/banner.png',
-    ],
-
     'installable': True,
     'application': True,
     'license': 'Other proprietary',

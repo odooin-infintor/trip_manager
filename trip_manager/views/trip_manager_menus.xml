@@ -2,8 +2,8 @@
 <odoo>
     <!--Root-->
     <menuitem id="trip_manager_menu_root" 
-            name="Trip Manager"
-            web_icon="trip_manager,static/description/icon.png"/>
+            name="Tour &amp; Travel Management"
+            web_icon="trip_manager/static/description/icon.png"/>
 
     <!--Enquiry-->
     <menuitem id="trip_manager_enquiry_menu"
