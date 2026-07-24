@@ -177,51 +177,54 @@
 
         <hr style="margin:10px 0;"/>
 
-        <!-- ================= INCLUSIONS ================= -->
-        <t t-if="ordered_options">
-            <h4 style="margin:10px 0;">Inclusions</h4>
+    <!-- ================= INCLUSIONS ================= -->
+    <t t-if="ordered_options">
+        <h4 style="margin:10px 0; page-break-after:avoid;">Inclusions</h4>
 
-            <table style="width:100%; border-collapse:collapse; font-size:12px; table-layout:fixed;">
+        <t t-set="max_rows" t-value="max(len(opt.addon_ids) for opt in ordered_options)"/>
 
-                <thead style="background:#4CAF50; color:white;">
+        <table style="width:100%; border-collapse:collapse; font-size:12px; table-layout:fixed; border:1px solid #ccc;">
+
+            <thead style="background:#4CAF50; color:white; display:table-header-group;">
+                <tr>
+                    <t t-foreach="ordered_options" t-as="opt">
+                        <th style="border:1px solid #ccc; padding:6px;">
+                            <t t-esc="opt.package_category.capitalize()"/>
+                        </th>
+                    </t>
+                </tr>
+            </thead>
+
+            <tbody>
+                <t t-if="not max_rows">
                     <tr>
                         <t t-foreach="ordered_options" t-as="opt">
-                            <th style="border:1px solid #ccc; padding:6px;">
-                                <t t-esc="opt.package_category.capitalize()"/>
-                            </th>
+                            <td style="border-left:1px solid #ccc; border-right:1px solid #ccc; padding:5px; text-align:center;">-</td>
                         </t>
                     </tr>
-                </thead>
+                </t>
 
-                <tbody>
-                    <tr>
+                <t t-foreach="range(max_rows)" t-as="idx">
+                    <tr style="page-break-inside:avoid;">
                         <t t-foreach="ordered_options" t-as="opt">
-                            <td style="border:1px solid #ccc; padding:5px; vertical-align:top;">
-
-                                <ul style="margin:0; padding-left:16px;">
-                                    <t t-foreach="opt.addon_ids" t-as="addon">
-                                        <li>
-                                            <strong><t t-out="addon.category_id.name"/></strong>
-                                            <t t-if="addon.description">
-                                                - <t t-out="addon.description"/>
-                                            </t>
-                                        </li>
+                            <td style="border-left:1px solid #ccc; border-right:1px solid #ccc; border-top:0; border-bottom:0; padding:3px 8px; vertical-align:top;">
+                                <t t-if="idx &lt; len(opt.addon_ids)">
+                                    <t t-set="addon" t-value="opt.addon_ids[idx]"/>
+                                    <strong><t t-out="addon.category_id.name"/></strong>
+                                    <t t-if="addon.description">
+                                        - <t t-out="addon.description"/>
                                     </t>
-                                </ul>
-
-                                <t t-if="not opt.addon_ids">-</t>
-
+                                </t>
                             </td>
                         </t>
                     </tr>
-                </tbody>
+                </t>
+            </tbody>
 
-            </table>
-        </t>
+        </table>
+    </t>
         <!-- ================= EXCLUSIONS ================= -->
             <t t-if="o.package_id.excluded_items">
-
-                <div style="page-break-before: always;"> </div>
 
                 <h4 style="margin:10px 0;">Exclusions</h4>
 
