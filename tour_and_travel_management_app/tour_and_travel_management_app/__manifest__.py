@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+
+{
+    'name': 'Tour and Travel Management System',
+    'version': '19.0.1.0.0',
+    'category': 'Generic Modules',
+    'sequence': 10,
+    'author': 'Infintor Solutions',
+    'price': 400,
+    'currency': 'USD',
+    'summary': 'Helps to manage tour operations',
+    'website': 'https://www.infintor.com',
+    'depends': [
+        'base',
+    ],
+
+    'images': [
+        'static/description/banner.png',
+    ],
+
+    'data': [
+        'security/trip_manager_security.xml',
+        'security/ir.model.access.csv',
+        
+        'data/ir_sequence_data.xml',
+        'data/trip_manager_addon_category_data.xml',
+        
+        'report/trip_manager_enquiry_report.xml',
+        
+        'views/trip_manager_enquiry_addon_views.xml',
+        'views/report_trip_manager_enquiry.xml', 
+        'views/trip_manager_addon_category_views.xml',
+        'views/trip_manager_enquiry_option_views.xml',
+        'views/trip_manager_enquiry_views.xml',
+        'views/res_partner_views.xml',
+        'views/trip_manager_vehicle_views.xml',
+        'views/trip_manager_hotel_room_type_views.xml',
+        'views/trip_manager_itineary_views.xml',
+        'views/trip_manager_package_views.xml',
+        'views/trip_manager_destination_category_views.xml',
+        'views/trip_manager_activity_views.xml',
+        'views/trip_manager_destination_views.xml',
+        'views/trip_manager_hotel_views.xml',
+        'views/trip_manager_city_views.xml',
+        'views/trip_manager_menus.xml'
+    ],
+    'installable': True,
+    'application': True,
+    'license': 'Other proprietary',
+}
