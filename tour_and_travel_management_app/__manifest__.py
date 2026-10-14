@@ -4,7 +4,7 @@
 
 {
     'name': 'Tour and Travel Management System',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'category': 'Generic Modules',
     'sequence': 10,
     'author': 'Infintor Solutions',

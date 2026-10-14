@@ -3,7 +3,7 @@
     <!--Root-->
     <menuitem id="trip_manager_menu_root" 
             name="Tour and Travel Management"
-            web_icon="tour_and_travel_management_system/static/description/icon.png"/>
+            web_icon="tour_and_travel_management_app,static/description/icon.png"/>
 
     <!--Enquiry-->
     <menuitem id="trip_manager_enquiry_menu"
