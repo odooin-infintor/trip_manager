@@ -17,7 +17,7 @@ class TripManagerItineary(models.Model):
     #   MARK: FIELDS
     # ------------------------------------------------------------------------------
     day_number = fields.Integer(string='Day', required=True, default=1)    
-    description = fields.Html(string='Description', required=True)
+    description = fields.Text(string='Description', required=True)
     no_of_days = fields.Integer(string='No Of Days', related='package_id.no_of_day', store=True)
     actual_date = fields.Date(string='Date', compute='_compute_actual_date')
     destination_domain = fields.Char(compute='_compute_destination_domain')

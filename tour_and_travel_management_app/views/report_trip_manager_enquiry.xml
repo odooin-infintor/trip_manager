@@ -23,7 +23,7 @@
         <field name="model">trip.manager.enquiry</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">tour_and_travel_management_app.report_trip_enquiry_quotation</field>
-        <field name="report_file">tour_and_travel_management_app.report_trip_enquiry_quotation</field>
+<!--        <field name="report_file">tour_and_travel_management_app.report_trip_enquiry_quotation</field>-->
         <field name="binding_model_id" ref="tour_and_travel_management_app.model_trip_manager_enquiry"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="paperformat_trip_quotation"/>

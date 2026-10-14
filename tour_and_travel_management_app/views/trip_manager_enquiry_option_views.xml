@@ -40,7 +40,7 @@
                                 context="{'tour_start_date': tour_start_date}">
                                 <list>
                                     <field name="actual_date"/>
-                                    <field name="description" widget="html"/>
+                                    <field name="description"/>
                                     <field name="destination_ids" widget="many2many_tags"/>
                                 </list>
                             </field>

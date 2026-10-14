@@ -26,24 +26,38 @@
                         <group>
                             <field name="availability_type"/>
 
-                            <field name="start_time"
-                                invisible="availability_type != 'timed'"
-                                widget="float_time" string="Opens At"/>
-
-                            <field name="end_time"
-                                invisible="availability_type != 'timed'"
-                                widget="float_time" string="Closes At"/>
+                            <field name="start_time" invisible="availability_type != 'timed'"
+                                   widget="float_time" options="{'numeric': True}" string="Opens At"/>
+                            <field name="end_time" invisible="availability_type != 'timed'"
+                                   widget="float_time" options="{'numeric': True}" string="Closes At"/>
 
                             <field name="has_second_slot"
                                 invisible="availability_type != 'timed'"/>
 
-                            <field name="slot2_start_time"
-                                invisible="not has_second_slot or availability_type != 'timed'"
-                                widget="float_time" string="Reopens At"/>
 
-                            <field name="slot2_end_time"
-                                invisible="not has_second_slot or availability_type != 'timed'"
-                                widget="float_time" string="Closes Again At"/>
+                            <field name="slot2_start_time" invisible="not has_second_slot or availability_type != 'timed'"
+                                   widget="float_time" options="{'numeric': True}" string="Reopens At"/>
+                            <field name="slot2_end_time" invisible="not has_second_slot or availability_type != 'timed'"
+                                   widget="float_time" options="{'numeric': True}" string="Closes Again At"/>
+
+<!--                            <field name="start_time"-->
+<!--                                invisible="availability_type != 'timed'"-->
+<!--                                widget="float_time" string="Opens At"/>-->
+
+<!--                            <field name="end_time"-->
+<!--                                invisible="availability_type != 'timed'"-->
+<!--                                widget="float_time" string="Closes At"/>-->
+
+<!--                            <field name="has_second_slot"-->
+<!--                                invisible="availability_type != 'timed'"/>-->
+
+<!--                            <field name="slot2_start_time"-->
+<!--                                invisible="not has_second_slot or availability_type != 'timed'"-->
+<!--                                widget="float_time" string="Reopens At"/>-->
+
+<!--                            <field name="slot2_end_time"-->
+<!--                                invisible="not has_second_slot or availability_type != 'timed'"-->
+<!--                                widget="float_time" string="Closes Again At"/>-->
                         </group>
                         <group>
                             <field name="visiting_hours_display"
@@ -87,8 +101,10 @@
                 <field name="name"/>
                 <field name="city_ids" widget="many2many_tags"/>
                 <field name="destination_category_ids" widget="many2many_tags"/>
-                <field name="start_time"/>
-                <field name="end_time"/>
+<!--                <field name="start_time"/>-->
+<!--                <field name="end_time"/>-->
+                <field name="start_time" widget="float_time" options="{'numeric': True}" string="Opens At"/>
+                <field name="end_time" widget="float_time" options="{'numeric': True}" string="Closes At"/>
             </list>
         </field>
     </record>

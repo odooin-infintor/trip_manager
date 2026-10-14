@@ -10,7 +10,7 @@
                 <field name="package_id"/>
                 <field name="no_of_days"/>
                 <field name="day_number"/>
-                <field name="description" widget="html"/>
+                <field name="description"/>
                 <field name="hotel_id"/>
                 <field name="destination_ids" widget="many2many_tags"/>
             </list>

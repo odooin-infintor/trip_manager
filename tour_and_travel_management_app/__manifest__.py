@@ -4,7 +4,7 @@
 
 {
     'name': 'Tour and Travel Management System',
-    'version': '19.0.1.0.1',
+    'version': '20.0.1.0.0',
     'category': 'Generic Modules',
     'sequence': 10,
     'author': 'Infintor Solutions',
@@ -22,7 +22,7 @@
 
     'data': [
         'security/trip_manager_security.xml',
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         
         'data/ir_sequence_data.xml',
         'data/trip_manager_addon_category_data.xml',

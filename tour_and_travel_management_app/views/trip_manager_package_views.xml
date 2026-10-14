@@ -41,7 +41,7 @@
                                 <list editable="bottom">
                                     <field name="package_destination_city_id" column_invisible="1"/>
                                     <field name="day_number"/>
-                                    <field name="description" widget="html"/>
+                                    <field name="description"/>
                                     <field name="destination_domain" column_invisible="1"/>
                                     <field name="destination_ids" widget="many2many_tags" domain="destination_domain"/>
                                     <field name="available_city_ids" column_invisible="1"/>

@@ -9,32 +9,32 @@
 
             <!-- ================= TITLE ================= -->
             <div style="text-align:center; margin-top: -45px; margin-bottom:15px;">
-                <h2 style="margin:0;" t-esc="o.package_id.name or 'Tour Package Quotation'"/>
+                <h2 style="margin:0;" t-out="o.package_id.name or 'Tour Package Quotation'"/>
 
                 <h4 style="margin:5px 0;">
-                    <t t-esc="o.no_of_day"/> Days
+                    <t t-out="o.no_of_day"/> Days
                     <t t-if="o.destination_city_id">
-                        - <t t-esc="o.destination_city_id.name"/> Tour
+                        - <t t-out="o.destination_city_id.name"/> Tour
                     </t>
                 </h4>
 
                 <div style="margin-top:8px; font-size:13px;">
                     <strong>Customer:</strong>
-                    <t t-esc="o.customer_id.name"/>
+                    <t t-out="o.customer_id.name"/>
                     |
 
                     <strong>Travel Date:</strong>
-                    <t t-esc="o.tour_start_date" t-options='{"widget":"date"}'/>
+                    <t t-out="o.tour_start_date" t-options='{"widget":"date"}'/>
                     to
-                    <t t-esc="o.tour_end_date" t-options='{"widget":"date"}'/>
+                    <t t-out="o.tour_end_date" t-options='{"widget":"date"}'/>
                     |
 
                     <strong>Adults:</strong>
-                    <t t-esc="o.no_of_adult"/>
+                    <t t-out="o.no_of_adult"/>
                     |
 
                     <strong>Children:</strong>
-                    <t t-esc="o.no_of_child or 0"/>
+                    <t t-out="o.no_of_child or 0"/>
                 </div>
 
             </div>
@@ -47,11 +47,11 @@
             <t t-foreach="o.package_id.itineary_ids.sorted('day_number')" t-as="day">
                 <div style="margin-bottom:10px;">
                     <strong>
-                        Day <t t-esc="day.day_number"/> :
-                        <t t-esc="', '.join(day.destination_ids.mapped('name'))"/>
+                        Day <t t-out="day.day_number"/> :
+                        <t t-out="', '.join(day.destination_ids.mapped('name'))"/>
                     </strong>
 
-                    <div t-out="day.description" style="margin-top:3px;"/>
+                    <div t-out="day.description" style="margin-top:3px; white-space:pre-line;"/>
                 </div>
             </t>
 
@@ -76,7 +76,7 @@
 
                     <t t-foreach="ordered_options" t-as="opt">
                         <th style="border:1px solid #ccc; padding:6px;">
-                            <t t-esc="opt.package_category.capitalize()"/> Hotel
+                            <t t-out="opt.package_category.capitalize()"/> Hotel
                         </th>
                     </t>
                 </tr>
@@ -88,11 +88,11 @@
                     <tr>
 
                         <td style="border:1px solid #ccc; padding:5px;">
-                            Day <t t-esc="line.day_number or '-'"/>
+                            Day <t t-out="line.day_number or '-'"/>
                         </td>
 
                         <td style="border:1px solid #ccc; padding:5px;">
-                            <t t-esc="', '.join(line.destination_ids.mapped('name'))"/>
+                            <t t-out="', '.join(line.destination_ids.mapped('name'))"/>
                         </td>
 
                         <t t-foreach="ordered_options" t-as="opt">
@@ -102,7 +102,7 @@
 
                             <td style="border:1px solid #ccc; padding:5px; text-align:center;">
                                 <t t-if="bl and bl[0].hotel_id">
-                                    <t t-esc="bl[0].hotel_id.name"/>
+                                    <t t-out="bl[0].hotel_id.name"/>
                                 </t>
                                 <t t-else="">-</t>
                             </td>
@@ -119,7 +119,7 @@
 
         <!-- ================= PRICING ================= -->
         <h4 style="margin:10px 0;">
-            Offer Price for <t t-esc="o.no_of_pax"/> Person(s)
+            Offer Price for <t t-out="o.no_of_pax"/> Person(s)
         </h4>
 
         <!-- Show table only if at least one option has a flight amount -->
@@ -140,18 +140,18 @@
                     <t t-foreach="ordered_options" t-as="opt">
                         <tr>
                             <td style="border:1px solid #ccc; padding:5px; font-weight:bold;">
-                                <t t-esc="opt.package_category.capitalize()"/>
+                                <t t-out="opt.package_category.capitalize()"/>
                             </td>
                             <td style="border:1px solid #ccc; padding:5px; text-align:right;">
-                                <t t-esc="opt.selling_rate"
+                                <t t-out="opt.selling_rate"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                             </td>
                             <td style="border:1px solid #ccc; padding:5px; text-align:right;">
-                                <t t-esc="opt.flight_total"
+                                <t t-out="opt.flight_total"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                             </td>
                             <td style="border:1px solid #ccc; padding:5px; text-align:right;">
-                                <t t-esc="opt.selling_rate + opt.flight_total"
+                                <t t-out="opt.selling_rate + opt.flight_total"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                             </td>
                         </tr>
@@ -165,11 +165,11 @@
             <t t-foreach="ordered_options" t-as="opt">
                 <p style="margin:3px 0;">
                     <strong>
-                        OFFER PRICE FOR <t t-esc="o.no_of_adult"/> PERSONS
-                        (With <t t-esc="opt.package_category.capitalize()"/>)
+                        OFFER PRICE FOR <t t-out="o.no_of_adult"/> PERSONS
+                        (With <t t-out="opt.package_category.capitalize()"/>)
                     </strong>
                     :
-                    <t t-esc="opt.selling_rate"
+                    <t t-out="opt.selling_rate"
                     t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                 </p>
             </t>
@@ -189,7 +189,7 @@
                 <tr>
                     <t t-foreach="ordered_options" t-as="opt">
                         <th style="border:1px solid #ccc; padding:6px;">
-                            <t t-esc="opt.package_category.capitalize()"/>
+                            <t t-out="opt.package_category.capitalize()"/>
                         </th>
                     </t>
                 </tr>
